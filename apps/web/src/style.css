@@ -1,4 +1,7 @@
 @import 'tailwindcss';
+/* Add this line to tell Tailwind to scan your UI package */
+@source "../../../packages/ui/src";
+
 @import '@repo/tailwind-config';
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
