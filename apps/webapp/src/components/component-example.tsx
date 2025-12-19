@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Example, ExampleWrapper } from './example';
+import { Example, ExampleWrapper } from '~/components/example';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogMedia, AlertDialogTitle, AlertDialogTrigger } from '@repo/ui/components/alert-dialog';
 import { Badge } from '@repo/ui/components/badge';
 import { Button } from '@repo/ui/components/button';
@@ -30,15 +30,13 @@ function CardExample() {
         <img src="https://images.unsplash.com/photo-1604076850742-4c7221f3101b?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Photo by mymind on Unsplash" title="Photo by mymind on Unsplash" className="relative z-20 aspect-video w-full object-cover brightness-60 grayscale" />
         <CardHeader>
           <CardTitle>Observability Plus is replacing Monitoring</CardTitle>
-          <CardDescription>Switch to the improved way to explore your data, with natural language. Monitoring will no longer be available on the Pro plan in November, 2025</CardDescription>
+          <CardDescription>Switch to the improvdddddded way to explore your data, with natural language. Monitoring will no longer be available on the Pro plan in November, 2025</CardDescription>
         </CardHeader>
         <CardFooter>
           <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <Button>
-                <PlusIcon data-icon="inline-start" />
-                Show Dialog
-              </Button>
+            <AlertDialogTrigger render={<Button />}>
+              <PlusIcon data-icon="inline-start" />
+              Show Dialog
             </AlertDialogTrigger>
             <AlertDialogContent size="sm">
               <AlertDialogHeader>
@@ -65,6 +63,13 @@ function CardExample() {
 
 const frameworks = ['Next.js', 'SvelteKit', 'Nuxt.js', 'Remix', 'Astro'] as const;
 
+const roleItems = [
+  { label: 'Developer', value: 'developer' },
+  { label: 'Designer', value: 'designer' },
+  { label: 'Manager', value: 'manager' },
+  { label: 'Other', value: 'other' },
+];
+
 function FormExample() {
   const [notifications, setNotifications] = React.useState({
     email: true,
@@ -81,11 +86,9 @@ function FormExample() {
           <CardDescription>Please fill in your details below</CardDescription>
           <CardAction>
             <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon">
-                  <MoreVerticalIcon />
-                  <span className="sr-only">More options</span>
-                </Button>
+              <DropdownMenuTrigger render={<Button variant="ghost" size="icon" />}>
+                <MoreVerticalIcon />
+                <span className="sr-only">More options</span>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-56">
                 <DropdownMenuGroup>
@@ -324,16 +327,17 @@ function FormExample() {
                 </Field>
                 <Field>
                   <FieldLabel htmlFor="small-form-role">Role</FieldLabel>
-                  <Select defaultValue="">
+                  <Select items={roleItems} defaultValue={null}>
                     <SelectTrigger id="small-form-role">
-                      <SelectValue placeholder="Select a role" />
+                      <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectGroup>
-                        <SelectItem value="developer">Developer</SelectItem>
-                        <SelectItem value="designer">Designer</SelectItem>
-                        <SelectItem value="manager">Manager</SelectItem>
-                        <SelectItem value="other">Other</SelectItem>
+                        {roleItems.map((item) => (
+                          <SelectItem key={item.value} value={item.value}>
+                            {item.label}
+                          </SelectItem>
+                        ))}
                       </SelectGroup>
                     </SelectContent>
                   </Select>
