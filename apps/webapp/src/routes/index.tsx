@@ -1,6 +1,11 @@
+import { createFileRoute } from '@tanstack/react-router';
 import { ComponentExample } from '~/components/component-example';
 
-export function App() {
+export const Route = createFileRoute('/')({
+  component: App,
+});
+
+function App() {
   return (
     <>
       <p>helodddggggodfgdfgoo</p>
@@ -8,5 +13,3 @@ export function App() {
     </>
   );
 }
-
-export default App;
