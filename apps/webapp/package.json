@@ -12,9 +12,11 @@
   "dependencies": {
     "@base-ui/react": "^1.0.0",
     "@fontsource-variable/roboto": "^5.2.9",
+    "@repo/auth": "*",
     "@repo/ui": "*",
     "@tailwindcss/vite": "^4.1.5",
     "@tanstack/react-devtools": "^0.8.4",
+    "@tanstack/react-form": "^1.27.5",
     "@tanstack/react-router": "^1.141.6",
     "@tanstack/react-router-devtools": "^1.141.6",
     "class-variance-authority": "^0.7.1",

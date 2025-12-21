@@ -20,4 +20,5 @@ export const auth = betterAuth({
       redirectURI: `${baseUrl}/api/auth/callback/discord`,
     },
   },
+  trustedOrigins: [baseUrl],
 });

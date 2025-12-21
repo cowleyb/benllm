@@ -1,46 +1,57 @@
-import { useActionState } from 'react';
 import { cn } from '~/lib/utils';
 import { Button } from '@repo/ui/components/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@repo/ui/components/card';
-import { Field, FieldDescription, FieldGroup, FieldLabel, FieldSeparator } from '@repo/ui/components/field';
+import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel, FieldSeparator } from '@repo/ui/components/field';
 import { Input } from '@repo/ui/components/input';
 import { PasswordInput } from '~/components/password-input';
 import { authClient } from '@repo/auth/client';
-// import { signInWithDiscord, signInWithEmail } from '~/lib/actions';
+import { z } from 'zod';
+import { useForm } from '@tanstack/react-form';
+
+const loginSchema = z.object({
+  email: z.string().min(1, 'Email is required').email('Please enter a valid email'),
+  password: z.string().min(1, 'Password is required'),
+});
 
 async function signInWithDiscord() {
   const res = await authClient.signIn.social({
     provider: 'discord',
+    callbackURL: '/',
   });
 
   console.log('Discord sign-in response:', res);
 }
 
-//TODO REDO THIS
-async function signInWithEmail(formData: FormData) {
-  const email = formData.get('email') as string;
-  const password = formData.get('password') as string;
-
-  try {
-    const res = await authClient.signIn.email({
-      email,
-      password,
-    });
-
-    if (res.error) {
-      return { error: res.error.message, success: false };
-    }
-
-    return { error: '', success: true };
-  } catch (error) {
-    return { error: 'An unexpected error occurred. Please try again.', success: false };
-  }
+async function signInWithEmail(values: z.infer<typeof loginSchema>) {
+  const res = await authClient.signIn.email({
+    email: values.email,
+    password: values.password,
+    callbackURL: '/',
+  });
+  return res;
 }
 
 export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) {
-  const [state, formAction, isPending] = useActionState(signInWithEmail, {
-    error: '',
-    success: false,
+  const form = useForm({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+    validators: {
+      onSubmit: loginSchema,
+      onSubmitAsync: async ({ value }) => {
+        const result = await signInWithEmail(value);
+        console.log('Email sign-in result:', result);
+        if (result.error) {
+          return result.error.message ?? 'An error occurred during sign in';
+        }
+        return undefined;
+      },
+    },
+    onSubmit: async () => {
+      // If we get here, validation passed and sign-in was successful
+      // The redirect should happen automatically via callbackURL
+    },
   });
 
   return (
@@ -63,37 +74,64 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
               </form>
             </Field>
             <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">Or continue with</FieldSeparator>
-            <form action={formAction} className="flex w-full flex-col gap-4">
-              <Field>
-                <FieldLabel htmlFor="email">Email</FieldLabel>
-                <Input id="email" name="email" type="email" placeholder="m@example.com" required />
-              </Field>
-              <Field>
-                <div className="flex items-center">
-                  <FieldLabel htmlFor="password">Password</FieldLabel>
-                  <a href="/forgotpassword" className="ml-auto text-sm underline-offset-4 hover:underline">
-                    Forgot your password?
-                  </a>
-                </div>
-                <PasswordInput id="password" name="password" required />
-              </Field>
-              {state.error && <p className="text-destructive text-sm">{state.error}</p>}
-              <Field>
-                <Button type="submit" className="w-full" disabled={isPending}>
-                  {isPending ? 'Logging in...' : 'Login'}
-                </Button>
-                <FieldDescription className="text-center">
-                  Don&apos;t have an account? <a href="/signup">Sign up</a>
-                </FieldDescription>
-              </Field>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                form.handleSubmit();
+              }}
+              className="flex w-full flex-col gap-4"
+            >
+              <form.Field
+                name="email"
+                children={(field) => {
+                  const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
+                  return (
+                    <Field data-invalid={isInvalid}>
+                      <FieldLabel htmlFor={field.name}>Email</FieldLabel>
+                      <Input id={field.name} name={field.name} type="email" value={field.state.value} onBlur={field.handleBlur} onChange={(e) => field.handleChange(e.target.value)} aria-invalid={isInvalid} placeholder="m@example.com" autoComplete="email" />
+                      {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                    </Field>
+                  );
+                }}
+              />
+              <form.Field
+                name="password"
+                children={(field) => {
+                  const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
+                  return (
+                    <Field data-invalid={isInvalid}>
+                      <div className="flex items-center">
+                        <FieldLabel htmlFor={field.name}>Password</FieldLabel>
+                        <a href="/forgotpassword" className="ml-auto text-sm underline-offset-4 hover:underline">
+                          Forgot your password?
+                        </a>
+                      </div>
+                      <PasswordInput id={field.name} name={field.name} value={field.state.value} onBlur={field.handleBlur} onChange={(e) => field.handleChange(e.target.value)} aria-invalid={isInvalid} autoComplete="current-password" />
+                      {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                    </Field>
+                  );
+                }}
+              />
+              <form.Subscribe
+                selector={(state) => [state.errorMap.onSubmit, state.isSubmitting] as const}
+                children={([submitError, isSubmitting]) => (
+                  <>
+                    {submitError && <p className="text-destructive text-sm">{typeof submitError === 'string' ? submitError : 'An error occurred'}</p>}
+                    <Field>
+                      <Button type="submit" className="w-full" disabled={isSubmitting}>
+                        {isSubmitting ? 'Logging in...' : 'Login'}
+                      </Button>
+                      <FieldDescription className="text-center">
+                        Don&apos;t have an account? <a href="/signup">Sign up</a>
+                      </FieldDescription>
+                    </Field>
+                  </>
+                )}
+              />
             </form>
           </FieldGroup>
         </CardContent>
       </Card>
-      {/* <FieldDescription className="px-6 text-center">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
-        and <a href="#">Privacy Policy</a>.
-      </FieldDescription> */}
     </div>
   );
 }
