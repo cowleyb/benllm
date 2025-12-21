@@ -1,0 +1,17 @@
+{
+  "name": "@repo/auth",
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/auth.ts"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "*",
+    "@repo/typescript-config": "*"
+  },
+  "dependencies": {
+    "@repo/db": "*",
+    "@repo/env": "*",
+    "better-auth": "^1.4.7"
+  }
+}

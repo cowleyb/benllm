@@ -1,0 +1,23 @@
+{
+  "name": "@repo/env",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@repo/eslint-config": "*",
+    "@repo/typescript-config": "*",
+    "@t3-oss/env-core": "^0.13.10",
+    "zod": "^4.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.3",
+    "typescript": "^5.7.2"
+  }
+}

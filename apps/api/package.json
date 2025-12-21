@@ -2,6 +2,8 @@
   "name": "hono",
   "type": "module",
   "dependencies": {
+    "@repo/env": "*",
+    "@repo/auth": "*",
     "hono": "^4.11.1"
   },
   "devDependencies": {
