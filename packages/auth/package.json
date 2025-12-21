@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    ".": "./src/auth.ts"
+    ".": "./src/auth.ts",
+    "./client": "./src/auth-client.ts"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
