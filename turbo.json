@@ -17,5 +17,6 @@
       "cache": false,
       "persistent": true
     }
-  }
+  },
+  "globalEnv": ["DATABASE_URL", "BETTER_AUTH_SECRET", "BETTER_AUTH_DISCORD_CLIENT_ID", "BETTER_AUTH_DISCORD_CLIENT_SECRET"]
 }
