@@ -5,13 +5,11 @@
   "exports": {
     ".": {
       "types": "./dist/auth.d.ts",
-      "import": "./dist/auth.js",
-      "default": "./dist/auth.js"
+      "default": "./src/auth.ts"
     },
     "./client": {
       "types": "./dist/auth-client.d.ts",
-      "import": "./dist/auth-client.js",
-      "default": "./dist/auth-client.js"
+      "default": "./src/auth-client.ts"
     }
   },
   "scripts": {
