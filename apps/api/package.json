@@ -1,8 +1,10 @@
 {
   "name": "hono",
   "type": "module",
+  "main": "dist/index.js",
   "scripts": {
-    "dev": "bun --env-file=../../.env run --bun srvx src/index.ts"
+    "dev": "bun --env-file=../../.env run --bun srvx src/index.ts",
+    "build": "tsup src/index.ts --format esm --target node20 --platform=node --out-dir dist --clean"
   },
   "dependencies": {
     "@repo/env": "*",
@@ -13,6 +15,7 @@
     "@types/node": "^20.11.17",
     "tsx": "^4.7.1",
     "typescript": "^5.8.3",
-    "srvx": "^0.8.7"
+    "srvx": "^0.8.7",
+    "tsup": "^8.5.1"
   }
 }
