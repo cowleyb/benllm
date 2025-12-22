@@ -108,6 +108,7 @@
       "devDependencies": {
         "@repo/eslint-config": "*",
         "@repo/typescript-config": "*",
+        "typescript": "^5.9.3",
       },
     },
     "packages/db": {

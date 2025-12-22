@@ -4,25 +4,21 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/auth.js",
-      "types": "./dist/auth.d.ts"
+      "types": "./dist/auth.d.ts",
+      "default": "./src/auth.ts"
     },
     "./client": {
-      "import": "./dist/auth-client.js",
-      "types": "./dist/auth-client.d.ts"
+      "types": "./dist/auth-client.d.ts",
+      "default": "./src/auth-client.ts"
     }
   },
-  "main": "./dist/auth.js",
-  "types": "./dist/auth.d.ts",
-  "files": [
-    "dist"
-  ],
   "scripts": {
-    "build": "tsc -p tsconfig.json"
+    "build": "tsc"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
-    "@repo/typescript-config": "*"
+    "@repo/typescript-config": "*",
+    "typescript": "^5.9.3"
   },
   "dependencies": {
     "@repo/db": "*",

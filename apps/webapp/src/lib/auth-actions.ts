@@ -1,7 +1,6 @@
 import { authClient } from '@repo/auth/client';
 import type { loginSchema, signUpSchema } from './schemas/auth-schema';
 import { z } from 'zod';
-import { redirect, useNavigate } from '@tanstack/react-router';
 
 export async function signInWithDiscord() {
   const res = await authClient.signIn.social({
