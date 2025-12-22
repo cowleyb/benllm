@@ -5,7 +5,6 @@ import { TanStackDevtools } from '@tanstack/react-devtools';
 export const Route = createRootRoute({
   component: () => (
     <>
-      <h1>My App</h1>
       <Outlet />
       <TanStackDevtools
         config={{

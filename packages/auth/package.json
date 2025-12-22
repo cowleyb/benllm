@@ -3,8 +3,22 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    ".": "./src/auth.ts",
-    "./client": "./src/auth-client.ts"
+    ".": {
+      "import": "./dist/auth.js",
+      "types": "./dist/auth.d.ts"
+    },
+    "./client": {
+      "import": "./dist/auth-client.js",
+      "types": "./dist/auth-client.d.ts"
+    }
+  },
+  "main": "./dist/auth.js",
+  "types": "./dist/auth.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",

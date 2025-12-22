@@ -7,29 +7,8 @@ import { PasswordInput } from '~/components/password-input';
 import { authClient } from '@repo/auth/client';
 import { z } from 'zod';
 import { useForm } from '@tanstack/react-form';
-
-const loginSchema = z.object({
-  email: z.string().min(1, 'Email is required').email('Please enter a valid email'),
-  password: z.string().min(1, 'Password is required'),
-});
-
-async function signInWithDiscord() {
-  const res = await authClient.signIn.social({
-    provider: 'discord',
-    callbackURL: '/',
-  });
-
-  console.log('Discord sign-in response:', res);
-}
-
-async function signInWithEmail(values: z.infer<typeof loginSchema>) {
-  const res = await authClient.signIn.email({
-    email: values.email,
-    password: values.password,
-    callbackURL: '/',
-  });
-  return res;
-}
+import { loginSchema } from '~/lib/schemas/auth-schema';
+import { signInWithDiscord, signInWithEmail } from '~/lib/auth-actions';
 
 export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) {
   const form = useForm({
@@ -75,6 +54,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
             </Field>
             <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">Or continue with</FieldSeparator>
             <form
+              id="login-form"
               onSubmit={(e) => {
                 e.preventDefault();
                 form.handleSubmit();
