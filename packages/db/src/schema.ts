@@ -8,4 +8,4 @@ export const post = pgTable('post', {
   updatedAt: timestamp('updated_at', { mode: 'string' }),
 });
 
-export * from './auth-schema';
+export * from './auth-schema.js';

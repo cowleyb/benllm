@@ -1,7 +1,7 @@
 import { createPool, sql } from '@vercel/postgres';
 import { drizzle } from 'drizzle-orm/vercel-postgres';
 
-import * as schema from './schema';
+import * as schema from './schema.js';
 import { env } from '@repo/env';
 
 export const db = drizzle({
