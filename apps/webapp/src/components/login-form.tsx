@@ -4,8 +4,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@repo
 import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel, FieldSeparator } from '@repo/ui/components/field';
 import { Input } from '@repo/ui/components/input';
 import { PasswordInput } from '~/components/password-input';
-import { authClient } from '@repo/auth/client';
-import { z } from 'zod';
 import { useForm } from '@tanstack/react-form';
 import { loginSchema } from '~/lib/schemas/auth-schema';
 import { signInWithDiscord, signInWithEmail } from '~/lib/auth-actions';
