@@ -8,6 +8,7 @@ import { defineConfig } from 'vite';
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [tanstackRouter({ target: 'react', autoCodeSplitting: true }), react(), tailwindcss(), tsconfigPaths()],
+  // Works for local dev only use vercel rewrites for production
   server: {
     proxy: {
       '/api': {
