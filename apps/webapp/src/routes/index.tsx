@@ -23,8 +23,6 @@ export const Route = createFileRoute('/')({
           redirect: location.href,
         },
       });
-    } else {
-      console.log('Active session found');
     }
   },
 });
