@@ -3,8 +3,7 @@
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "bun --env-file=../../.env run --bun srvx src/index.ts",
-    "build": "tsc"
+    "dev": "bun --env-file=../../.env run --bun srvx src/index.ts"
   },
   "dependencies": {
     "@repo/env": "*",
