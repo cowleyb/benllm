@@ -6,6 +6,8 @@ import { env } from '@repo/env';
 
 const baseUrl = env.VERCEL_ENV === 'production' ? `https://${env.VERCEL_PROJECT_PRODUCTION_URL}` : env.VERCEL_ENV === 'preview' ? `https://${env.VERCEL_URL}` : 'http://localhost:5173';
 
+console.log(env.VERCEL_ENV, baseUrl);
+
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
     provider: 'pg', // or "mysql", "sqlite"
@@ -20,5 +22,5 @@ export const auth = betterAuth({
       redirectURI: `${baseUrl}/api/auth/callback/discord`,
     },
   },
-  trustedOrigins: [baseUrl],
+  trustedOrigins: [baseUrl, 'https://chat.bencow.dev'],
 });
