@@ -4,7 +4,7 @@
   "main": "dist/index.js",
   "scripts": {
     "dev": "bun --env-file=../../.env run --bun srvx src/index.ts",
-    "build": "tsup src/index.ts --format esm --dts --clean --noExternal @repo/auth --noExternal @repo/db --noExternal @repo/env"
+    "build": "tsc"
   },
   "dependencies": {
     "@repo/env": "*",
