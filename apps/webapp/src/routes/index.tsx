@@ -1,11 +1,9 @@
 import { authClient } from '@repo/auth/client';
 import { createFileRoute, redirect, useNavigate } from '@tanstack/react-router';
-import { ArrowRightLeftIcon, CalendarClockIcon, ChartNoAxesCombinedIcon, ChartPieIcon, ChartSplineIcon, ClipboardListIcon, Clock9Icon, CrownIcon, FacebookIcon, HashIcon, InstagramIcon, LanguagesIcon, LinkedinIcon, SettingsIcon, SquareActivityIcon, TwitterIcon, Undo2Icon, UsersIcon } from 'lucide-react';
+import { ArrowRightLeftIcon, CalendarClockIcon, ChartNoAxesCombinedIcon, ChartPieIcon, ChartSplineIcon, ClipboardListIcon, Clock9Icon, CrownIcon, FacebookIcon, HashIcon, InstagramIcon, LinkedinIcon, SettingsIcon, SquareActivityIcon, TwitterIcon, Undo2Icon, UsersIcon } from 'lucide-react';
 
-import { Button } from '@repo/ui/components/button';
 import { Separator } from '@repo/ui/components/separator';
 import { Card, CardContent } from '@repo/ui/components/card';
-import { Avatar, AvatarFallback, AvatarImage } from '@repo/ui/components/avatar';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@repo/ui/components/breadcrumb';
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuBadge, SidebarMenuButton, SidebarMenuItem, SidebarProvider, SidebarTrigger } from '@repo/ui/components/sidebar';
 import { signOut } from '~/lib/auth-actions';
