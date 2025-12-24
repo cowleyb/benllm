@@ -39,7 +39,11 @@ function ApplicationShell() {
   //TODO remove
   const testAuth = async () => {
     const res = await client.api.protected.$get();
-    console.log('Protected route response:', res);
+
+    if (res.ok) {
+      const data = await res.json();
+      console.log('Protected route data:', data);
+    }
   };
 
   return (

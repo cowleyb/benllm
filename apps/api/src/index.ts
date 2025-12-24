@@ -21,7 +21,13 @@ const routes = app
   })
 
   .get('/api/protected', protectedRoute, async (c) => {
-    const user = c.get('user');
+    //Assume user is set by protectedRoute middleware
+    const user = c.get('user')!;
+
+    if (user.id !== 'PaN2t48iFXaps3Tb7xaJXVJZALK3w3J5') {
+      return c.json({ success: false, message: 'Access denied' }, 403);
+    }
+
     return c.json({ success: true, message: 'You have accessed a protected route', user });
   });
 
