@@ -1,6 +1,7 @@
 # TODO
 
 - [ ] router invalidation on sign out
+- [ ] cors
 
 # Turborepo Tailwind CSS starter
 

@@ -1,19 +1,29 @@
 import { Hono } from 'hono';
 import { auth } from '@repo/auth';
+import { zValidator } from '@hono/zod-validator';
+import { z } from 'zod';
 import { cors } from 'hono/cors';
 
-const app = new Hono();
+import { protectedRoute } from './middleware/routes';
 
-app.on(['POST', 'GET'], '/api/auth/*', (c) => {
-  return auth.handler(c.req.raw);
-});
+type Env = {
+  Variables: {
+    user: typeof auth.$Infer.Session.user | null;
+    session: typeof auth.$Infer.Session.session | null;
+  };
+};
 
-const welcomeStrings = ['Hello Hono!', 'To learn more about Hono on Vercel, visit https://vercel.com/docs/frameworks/backend/hono'];
+const app = new Hono<Env>();
 
-app.get('/', (c) => {
-  return c.text(welcomeStrings.join('\n\n'));
-});
+const routes = app
+  .on(['POST', 'GET'], '/api/auth/*', (c) => {
+    return auth.handler(c.req.raw);
+  })
 
-console.log('Auth module loaded');
+  .get('/api/protected', protectedRoute, async (c) => {
+    const user = c.get('user');
+    return c.json({ success: true, message: 'You have accessed a protected route', user });
+  });
 
+export type AppType = typeof routes;
 export default app;

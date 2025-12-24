@@ -4,7 +4,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./src/*", "../../packages/ui/src/*"]
+      "~/*": ["./src/*", "../../packages/ui/src/*"],
+      "@api": ["../api/src/index.ts"]
     }
   }
 }

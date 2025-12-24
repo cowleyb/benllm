@@ -1,14 +1,16 @@
 {
-  "name": "hono",
+  "name": "api",
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
     "dev": "bun --env-file=../../.env run --bun srvx src/index.ts"
   },
   "dependencies": {
-    "@repo/env": "*",
+    "@hono/zod-validator": "^0.7.6",
     "@repo/auth": "*",
-    "hono": "^4.11.1"
+    "@repo/env": "*",
+    "hono": "^4.11.1",
+    "zod": "^4.2.1"
   },
   "devDependencies": {
     "@types/node": "^20.11.17",

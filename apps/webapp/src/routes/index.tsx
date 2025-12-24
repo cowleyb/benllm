@@ -7,6 +7,7 @@ import { Card, CardContent } from '@repo/ui/components/card';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@repo/ui/components/breadcrumb';
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuBadge, SidebarMenuButton, SidebarMenuItem, SidebarProvider, SidebarTrigger } from '@repo/ui/components/sidebar';
 import { signOut } from '~/lib/auth-actions';
+import { client } from '~/lib/api';
 
 export const Route = createFileRoute('/')({
   component: ApplicationShell,
@@ -33,6 +34,12 @@ function ApplicationShell() {
   const handleSignOut = async () => {
     await signOut();
     navigate({ to: '/login' });
+  };
+
+  //TODO remove
+  const testAuth = async () => {
+    const res = await client.api.protected.$get();
+    console.log('Protected route response:', res);
   };
 
   return (
@@ -76,10 +83,10 @@ function ApplicationShell() {
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
+                    <SidebarMenuButton onClick={testAuth}>
                       <a href="#">
                         <ChartPieIcon />
-                        <span>Engagement Metrics</span>
+                        <span>Test Auth Metrics</span>
                       </a>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
