@@ -1,8 +1,23 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { authClient } from '@repo/auth/client';
+import { createFileRoute, redirect } from '@tanstack/react-router';
 import { LoginForm } from '~/components/login-form';
 
 export const Route = createFileRoute('/login')({
   component: LoginPage,
+  beforeLoad: async ({ location }) => {
+    const { data: session } = await authClient.getSession();
+    if (session) {
+      throw redirect({
+        to: '/',
+        search: {
+          // Use the current location to power a redirect after login
+          // (Do not use `router.state.resolvedLocation` as it can
+          // potentially lag behind the actual current location)
+          redirect: location.href,
+        },
+      });
+    }
+  },
 });
 
 function LoginPage() {
