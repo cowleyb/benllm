@@ -1,4 +1,4 @@
-import { Context, Next } from 'hono';
+import type { Context, Next } from 'hono';
 import { auth } from '@repo/auth';
 
 export const protectedRoute = async (c: Context, next: Next) => {
