@@ -4,7 +4,7 @@ import { auth } from '@repo/auth';
 // import { z } from 'zod';
 // import { cors } from 'hono/cors';
 
-import { protectedRoute } from './middleware/routes';
+import { protectedRoute } from './middleware/routes.js';
 
 type Env = {
   Variables: {
