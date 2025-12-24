@@ -1,8 +1,8 @@
 import { Hono } from 'hono';
 import { auth } from '@repo/auth';
-import { zValidator } from '@hono/zod-validator';
-import { z } from 'zod';
-import { cors } from 'hono/cors';
+// import { zValidator } from '@hono/zod-validator';
+// import { z } from 'zod';
+// import { cors } from 'hono/cors';
 
 import { protectedRoute } from './middleware/routes';
 
