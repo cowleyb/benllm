@@ -6,6 +6,7 @@ import clsx from 'clsx';
 import { Textarea } from '~/components/textarea';
 import TextareaAutosize from 'react-textarea-autosize';
 import { ScrollArea } from '@repo/ui/components/scroll-area';
+import { Separator } from '~/components/separator';
 
 /* -----------------------------
    MAIN CHAT INPUT TEMPLATE
@@ -29,28 +30,41 @@ export const ChatInput = ({ showGreeting = true }: { showGreeting?: boolean }) =
 /* -----------------------------
    CHAT INPUT BOX
 ------------------------------ */
-
+const tags = Array.from({ length: 50 }).map((_, i, a) => `v1.2.0-beta.${a.length - i}`);
+export function ScrollAreaDemo() {
+  return (
+    <ScrollArea className="h-72 w-48 rounded-md border">
+      <div className="p-4">
+        <h4 className="mb-4 text-sm leading-none font-medium">Tags</h4>
+        {tags.map((tag) => (
+          <React.Fragment key={tag}>
+            <div className="text-sm">{tag}</div>
+            <Separator className="my-2" />
+          </React.Fragment>
+        ))}
+      </div>
+    </ScrollArea>
+  );
+}
 const ChatInputBox = () => {
   return (
     <AnimatePresence>
       <motion.div className="w-full px-3" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.2, ease: 'easeOut' }}>
         <div className="relative z-10 w-full rounded-xl border border-border bg-background shadow-sm">
           {/* textarea wrapper – fixed height, scrolls inside */}
-          <ScrollArea className="h-60 w-full rounded-lg">
-            <Textarea placeholder="Type your message here." className="min-h-[80px] w-full resize-none rounded-none border-0 bg-transparent p-3 text-sm leading-relaxed focus-visible:ring-0 focus-visible:ring-offset-0" />
-          </ScrollArea>
+          <ScrollArea className="h-60 w-full rounded-lg ">
+            <Textarea
+              placeholder="Type your message here."
+              className="
+      full-size
+      resize-none
 
-          {/* Bottom bar */}
-          <div className="flex w-full items-center justify-between border-t border-dashed px-2 py-2">
-            <div className="flex items-center gap-2">
-              <PlaceholderButton label="Mode" />
-              <PlaceholderButton label="Web" />
-              <PlaceholderButton label="Image" />
-            </div>
-            <button className="rounded-md bg-primary px-4 py-2 text-sm text-primary-foreground">Send</button>
-          </div>
+    " /* let the textarea fill the viewport */
+            />
+          </ScrollArea>
         </div>
       </motion.div>
+      <ScrollAreaDemo />
     </AnimatePresence>
   );
 };

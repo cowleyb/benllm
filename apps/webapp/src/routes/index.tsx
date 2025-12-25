@@ -8,6 +8,7 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbP
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuBadge, SidebarMenuButton, SidebarMenuItem, SidebarProvider, SidebarTrigger } from '@repo/ui/components/sidebar';
 import { signOut } from '~/lib/auth-actions';
 import { client } from '~/lib/api';
+import { ChatInput, ScrollAreaDemo } from '~/components/chat/chat-input';
 
 export const Route = createFileRoute('/')({
   component: ApplicationShell,
@@ -210,7 +211,6 @@ function ApplicationShell() {
                 </Breadcrumb>
               </div>
               <div className="flex items-center gap-1.5">
-                hello
                 {/* <LanguageDropdown
                   trigger={
                     <Button variant="ghost" size="icon">
@@ -231,13 +231,12 @@ function ApplicationShell() {
               </div>
             </div>
           </header>
-          <main className="mx-auto size-full max-w-7xl flex-1 px-4 py-6 sm:px-6">
-            <Card className="h-250">
-              <CardContent className="h-full">
-                <div className="h-full rounded-md border bg-[repeating-linear-gradient(45deg,var(--muted),var(--muted)_1px,var(--card)_2px,var(--card)_15px)]" />
-              </CardContent>
-            </Card>
+          <main className="bg-primary mx-auto size-full max-w-7xl flex-1 flex flex-col px-4 py-6 sm:px-6 ">
+            <ChatInput />
           </main>
+          {/* <main>
+            <ChatInput />
+          </main> */}
           <footer>
             <div className="text-muted-foreground mx-auto flex size-full max-w-7xl items-center justify-between gap-3 px-4 py-3 max-sm:flex-col sm:gap-6 sm:px-6">
               <p className="text-sm text-balance max-sm:text-center">
